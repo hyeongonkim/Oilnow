@@ -12,3 +12,14 @@ class CodeOils(Enum):
             if code == i.value:
                 return True
         return False
+
+    def find_enum_by_name(name):
+        if name == CodeOils.CODE_PREMIUM_GASOLINE.name:
+            return CodeOils.CODE_PREMIUM_GASOLINE
+        elif name == CodeOils.CODE_GASOLINE.name:
+            return CodeOils.CODE_GASOLINE
+        elif name == CodeOils.CODE_DIESEL.name:
+            return CodeOils.CODE_DIESEL
+        elif name == CodeOils.CODE_LPG.name:
+            return CodeOils.CODE_LPG
+        raise TypeError
