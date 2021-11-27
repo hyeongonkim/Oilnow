@@ -2,12 +2,13 @@ import xml.etree.ElementTree as ET
 import requests
 from collections import OrderedDict
 from oilnow.model.CodeOils import CodeOils
+from oilnow.model.OpinetSecretKey import SecretKey
 
 
 class OpinetApi:
     def __init__(self):
         self.base_url = 'http://www.opinet.co.kr/api/'
-        self.api_key = 'F211118238'
+        self.api_key = SecretKey.API_KEY
 
     def get_avg_oil_price(self):
         req_url = self.base_url + 'avgAllPrice.do?out=xml&code=' + self.api_key
