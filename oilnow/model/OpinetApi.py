@@ -23,7 +23,7 @@ class OpinetApi:
             if CodeOils.is_in_enum(code_oil):
                 price_data[code_oil] = float(oil.find('PRICE').text)
 
-        return price_data.values()
+        return price_data
 
     def get_station_list_by_name(self, name):
         req_url = self.base_url + 'searchByName.do?out=xml&code=' + self.api_key + '&osnm=' + name

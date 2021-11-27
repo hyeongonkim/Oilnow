@@ -6,6 +6,7 @@ from oilnow.model.OpinetApi import OpinetApi
 from oilnow.dataset.DataManager import DataManager
 from PyQt5.QtWidgets import *
 from oilnow.ui.CarInfoDialog import CarInfoDialog
+from oilnow.ui.AvgOilPriceDialog import AvgOilPriceDialog
 from oilnow.model.CodeOils import CodeOils
 from oilnow.dataset.CarInfoDTO import CarInfoDTO
 from oilnow.dataset.OilLogDTO import OilLogDTO
@@ -43,6 +44,7 @@ class Oilnow(QWidget):
         btn_h_box = QHBoxLayout()
         btn_h_box.addStretch(1)
         avg_oil_price_btn = QPushButton('전국 평균 유가', self)
+        avg_oil_price_btn.clicked.connect(self.show_avg_price_dialog)
         btn_h_box.addWidget(avg_oil_price_btn)
         oil_log_add_btn = QPushButton('주유 기록 추가', self)
         btn_h_box.addWidget(oil_log_add_btn)
@@ -60,6 +62,7 @@ class Oilnow(QWidget):
 
         result_body_h_box = QHBoxLayout()
         self.result_body = QTextEdit()
+        self.result_body.setReadOnly(True)
         result_body_h_box.addWidget(self.result_body)
 
         layout_v_box = QVBoxLayout()
@@ -111,3 +114,7 @@ class Oilnow(QWidget):
         self.et_car_name.setText(self.data_manager.data[0].name)
         self.et_car_oil_type.setText(CodeOils.find_kor_name_by_enum(self.data_manager.data[0].oil_type))
         self.et_car_odo.setText(str(self.data_manager.data[0].init_odo))
+
+    def show_avg_price_dialog(self):
+        dialog = AvgOilPriceDialog(self.opinet_api)
+        r = dialog.show_dialog()

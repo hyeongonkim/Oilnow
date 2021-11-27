@@ -47,3 +47,14 @@ class CodeOils(Enum):
         elif name == CodeOils.LPG:
             return 'LPG'
         raise TypeError
+
+    def find_kor_name_by_enum_value(name):
+        if name == CodeOils.PREMIUM_GASOLINE.value:
+            return '고급휘발유'
+        elif name == CodeOils.GASOLINE.value:
+            return '휘발유'
+        elif name == CodeOils.DIESEL.value:
+            return '경유'
+        elif name == CodeOils.LPG.value:
+            return 'LPG'
+        raise TypeError
