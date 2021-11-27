@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 class CarInfoDTO:
     def __init__(self, name, oil_type, init_odo):
         self.name = name

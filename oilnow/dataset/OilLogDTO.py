@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 class OilLogDTO:
     def __init__(self, date, station_name, price, amount, fuel_efficiency):
         self.date = date
