@@ -1,6 +1,9 @@
 # -*- coding:utf-8 -*-
 
 import csv
+
+from PyQt5.QtCore import QDate
+
 from oilnow.dataset.CarInfoDTO import CarInfoDTO
 from oilnow.dataset.OilLogDTO import OilLogDTO
 from oilnow.model.CodeOils import CodeOils
@@ -22,9 +25,17 @@ class DataManager:
         car_info = rdr.pop(0)
         data.append(CarInfoDTO(car_info[0], CodeOils.find_enum_by_name(car_info[1]), int(car_info[2])))
 
-        # TODO: 오일로그 DTO 타입 컨버팅
         for oil_log in rdr:
-            data.append(OilLogDTO(oil_log[0], oil_log[1], int(oil_log[2]), float(oil_log[3]), float(oil_log[4])))
+            data.append(
+                OilLogDTO(
+                    QDate.fromString(oil_log[0], 'yyyy-MM-dd'),
+                    oil_log[1],
+                    int(oil_log[2]),
+                    float(oil_log[3]),
+                    int(oil_log[4]),
+                    int(oil_log[5])
+                )
+            )
         f.close()
 
         return data
@@ -50,9 +61,23 @@ class DataManager:
         self.data = self.get_data()
 
     def put_oil_log(self, oil_log):
-        f = open(self.file_name, 'a', encoding='utf-8', newline='')
+        f = open(self.file_name, 'r', encoding='utf-8')
+        rdr = list(csv.reader(f))
+        rdr.append([
+                oil_log.date.toString('yyyy-MM-dd'),
+                oil_log.station_name,
+                oil_log.price,
+                oil_log.amount,
+                oil_log.price_per_liter,
+                oil_log.odo
+            ])
+        sorted_rdr = sorted(rdr[1:], key=lambda log: QDate.fromString(log[0], 'yyyy-MM-dd'))
+        rdr = [rdr[0]]
+        rdr.extend(sorted_rdr)
+        f.close()
+        f = open(self.file_name, 'w', encoding='utf-8', newline='')
         wr = csv.writer(f)
-        wr.writerow([oil_log.date, oil_log.station_name, oil_log.price, oil_log.amount, oil_log.fuel_efficiency])
+        wr.writerows(rdr)
         f.close()
         self.data = self.get_data()
 

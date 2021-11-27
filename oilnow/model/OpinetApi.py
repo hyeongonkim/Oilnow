@@ -45,5 +45,5 @@ class OpinetApi:
             if price.find('PRODCD').text == code_oil.value:
                 return int(price.find('PRICE').text)
 
-        return 'Error: 해당 주유소에서 판매하지 않는 유종입니다.'
+        return ''
 

@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 
-from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import *
 from oilnow.model.CodeOils import CodeOils
 
@@ -27,7 +26,7 @@ class AvgOilPriceDialog(QDialog):
             layout.addLayout(temp_h_box)
 
         sub_layout = QHBoxLayout()
-        btn_cancel = QPushButton("취소")
+        btn_cancel = QPushButton("닫기")
         btn_cancel.clicked.connect(self.on_cancel_button_clicked)
         sub_layout.addWidget(btn_cancel)
         layout.addLayout(sub_layout)
